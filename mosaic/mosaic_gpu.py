@@ -143,18 +143,17 @@ def batch_indices(n, bs, gen, device, pool=None):
 def snapshot(model):
     return {k: v.detach().to("cpu", copy=True) for k, v in model.state_dict().items()}
 
-def train_subset(d, cols, args, seed, search=False):
+def train_subset(d, cols, args, seed):
     """Fresh model on field subset `cols` (Adam, early stopping on validation logloss, patience 1).
-    search=True: cheap search retrain (--search_rows fixed random rows, --search_epochs epochs).
     Returns (model restored to its best epoch, validation logits of that epoch)."""
     torch.manual_seed(seed); gen = torch.Generator().manual_seed(seed)
     model = make(d["card"][cols], args); opt = Optim(model, args)
-    X, y = d["Xtr_t"], d["ytr_t"]; pool = d.get("search_pool") if search else None
-    n = len(X) if pool is None else len(pool); cols_t = torch.as_tensor(cols, dtype=torch.long, device=X.device)
+    X, y = d["Xtr_t"], d["ytr_t"]
+    n = len(X); cols_t = torch.as_tensor(cols, dtype=torch.long, device=X.device)
     best, best_state, best_vz = math.inf, None, None
-    for ep in range(args.search_epochs if search else args.epochs):
+    for ep in range(args.epochs):
         model.train()
-        for b in batch_indices(n, args.batch_size, gen, X.device, pool):
+        for b in batch_indices(n, args.batch_size, gen, X.device):
             xb = X.index_select(0, b).index_select(1, cols_t).to(args.device, non_blocking=True).long()
             yb = y.index_select(0, b).to(args.device, non_blocking=True)
             opt.step(Fn.binary_cross_entropy_with_logits(model(xb), yb))
@@ -231,25 +230,23 @@ def protocol(args):
 
 def make_retrainer(d, args, cache):
     F = len(d["card"])
-    def retrain(m, seed, search=False):
-        key = f"{m}|{seed}|" + (f"s{args.search_rows}e{args.search_epochs}" if search else "full")
+    def retrain(m, seed):
+        key = f"{m}|{seed}|full"
         r = cache.get(key)
         if r is None:
             cols = bits(m, F); t = time.time()
-            model, vz = train_subset(d, cols, args, seed=seed * 100003 + m % 100003, search=search)
+            model, vz = train_subset(d, cols, args, seed=seed * 100003 + m % 100003)
             tz = logits(model, d["Xte_t"], args, cols=cols)
             r = dict(val_auc=auc_np(d["yva"], vz), test_auc=auc_np(d["yte"], tz), test_ll=logloss_logits(d["yte"], tz),
                      sec=round(time.time() - t, 2))
             cache.put(key, r); del model
-            log(f"[retrain] {'search' if search else 'final '} {len(cols):2d} fields seed {seed}: val AUC "
+            log(f"[retrain] final {len(cols):2d} fields seed {seed}: val AUC "
                 f"{r['val_auc']:.4f} test AUC {r['test_auc']:.4f} ({r['sec']:.0f}s; cache {len(cache)})")
         return r
     return retrain
 
 def setup_common(args):
     d = load_data(args); F = len(d["card"])
-    if getattr(args, "search_rows", None) and args.search_rows < len(d["Xtr"]):
-        d["search_pool"] = torch.from_numpy(np.random.default_rng(2029).choice(len(d["Xtr"]), args.search_rows, replace=False))
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     extra = [g for g in (args.import_caches or "").split(",") if g]
     cache = RetrainCache(args.out + ".cache.json", protocol(args), extra_globs=extra)
@@ -315,7 +312,7 @@ def cmd_costonly(args):
 def cmd_sens(args):
     """ Sensitivity of MOSAIC to its own settings, all on ONE shared model and the run's protocol:
     kernel width sigma in {0.1, 0.25*, 0.5, 1.0}; number of verified candidates in {1, 3*, 5}; share of the moment rows
-    in {0.25, 0.5, 1*} (same passes, so fewer samples). * = default. Verification always uses all moment rows.
+    in {0.5, 1*} (same passes, so fewer samples). * = default. Verification always uses all moment rows.
     Every selected set is retrained with --eval_seeds (cached retrains of the run are reused automatically)."""
     d, F, cache, retrain = setup_common(args); fields = d["fields"]
     budgets = [int(x) for x in args.budgets.split(",")]
@@ -334,7 +331,7 @@ def cmd_sens(args):
     for sg in (0.1, 0.5, 1.0): V[f"sigma={sg}"] = pick(est_full, sg, 3)
     for c in (1, 5): V[f"candidates={c}"] = pick(est_full, KERNEL_SIGMA, c)
     X0, y0 = d["est_X"], d["est_y"]
-    for fr in (0.25, 0.5):
+    for fr in (0.5,):
         sel = torch.from_numpy(np.sort(np.random.default_rng(3030 + args.seed).choice(len(ev), int(fr * len(ev)), replace=False))).to(X0.device)
         d["est_X"], d["est_y"] = X0[sel], y0[sel]
         t = time.time(); est_fr = mask_moments(sh, d, args); mom_sec[f"rows={fr}"] = time.time() - t
@@ -443,19 +440,13 @@ def cmd_trainablate(args):
     cand_auc = {k: {mm: sh_auc(mm) for mm in LOC[k]} for k in budgets}
     MOSV = {k: max(LOC[k], key=lambda mm: cand_auc[k][mm]) for k in budgets}
     sec["verification"] = time.time() - t
-    # diagnostic: how well the shared model serves random field subsets of each budget size (8 fixed draws per budget)
-    drng = np.random.default_rng(6060)
-    rand_auc = {str(k): float(np.mean([sh_auc(to_mask(drng.choice(F, k, replace=False))) for _ in range(8)])) for k in budgets}
-    full_auc = sh_auc((1 << F) - 1); sh = None
-    log(f"[trainablate {args.train_masks}] shared model {shared_epochs} epochs; masked val AUC of random size-k subsets "
-        + ", ".join(f"k={k}: {v:.4f}" for k, v in rand_auc.items()) + f"; all fields {full_auc:.4f}")
+    sh = None
     plan = {RUNG_FULL: MOSV, RUNG_PAIR: {k: LOC[k][0] for k in budgets}, RUNG_LOCAL: {k: first_order_subset(est, F, k) for k in budgets}}
     eval_seeds = [int(s) for s in args.eval_seeds.split(",")]
     variants = _final_eval(retrain, plan, budgets, eval_seeds, fields, F)
     save_json(dict(kind="trainablate", version="v2", scheme=args.train_masks, data=args.npz or args.dataset, model=args.model,
                    mseed=args.seed, budgets=budgets, fields=fields, grid=args.grid, passes=args.passes, shared_epochs=shared_epochs,
                    est_rows=len(ye), protocol=protocol(args), est=est, variants=variants,
-                   shared_random_subset_val_auc=rand_auc, shared_all_fields_val_auc=full_auc,
                    mosaic_candidates={str(k): [dict(fields=[fields[f] for f in bits(mm, F)], shared_val_auc=cand_auc[k][mm])
                                                for mm in LOC[k]] for k in budgets}, seconds=sec), args.out)
     log(f"[done] wrote {args.out}")
@@ -566,8 +557,6 @@ def build_parser():
         q.add_argument('--sparse_emb',action='store_true');q.add_argument('--chunk',type=int,default=131072)
         q.add_argument('--max_train_rows',type=int);q.add_argument('--max_eval_rows',type=int)
         q.add_argument('--import_caches',default='');q.add_argument('--smoke',action='store_true')
-        # Retained only as data-loader/retrainer defaults; no cheap-search experiments are exposed.
-        q.set_defaults(search_rows=None,search_epochs=1)
         q.add_argument('--shared_min_epochs',type=int,default=1);q.add_argument('--shared_max_epochs',type=int,default=10)
         q.add_argument('--passes',type=int,default=0);q.add_argument('--est_rows',type=int,default=500000)
         q.add_argument('--run_json')

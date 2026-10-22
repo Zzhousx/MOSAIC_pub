@@ -38,10 +38,9 @@ if __name__ == "__main__":
                cpu_threads=1, latency={})
     for k in sorted(sets):
         cols = [idx[f] for f in sets[k]]; c = card[cols]; row = dict(fields=sets[k], emb_mb=float(c.sum() * (a.dim + 1) * 4 / 1e6))
-        for kind in ["deepfm", "dcnv2"]:
+        for kind in ["dcnv2"]:
             torch.set_num_threads(1)
             m = CTRModel(c, kind=kind, dim=a.dim)
-            row[f"{kind}_cpu_b1_ms"] = time_forward(m, c, 1, "cpu", a.cpu_iters)
             row[f"{kind}_cpu_b256_ms"] = time_forward(m, c, 256, "cpu", max(20, a.cpu_iters // 4))
             if gpu:
                 m = m.to(gpu); row[f"{kind}_gpu_b4096_ms"] = time_forward(m, c, 4096, gpu, a.gpu_iters); del m; torch.cuda.empty_cache()

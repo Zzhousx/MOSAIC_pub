@@ -1,6 +1,6 @@
 """CPU mathematical checks; no GPU experiments or dataset training."""
 from pathlib import Path
-import importlib.util,itertools,json,sys,unittest
+import importlib.util,itertools,json,subprocess,sys,unittest
 import numpy as np
 
 R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'mosaic'))
@@ -42,13 +42,23 @@ class CoreTests(unittest.TestCase):
                 self.assertAlmostEqual(quad_value(y[None],a,b)[0]-quad_value(x[None],a,b)[0],a[j]+s[j]-b[i,j]-a[i]-s[i])
 
     def test_paper_fixture_scope(self):
-        files=list((R/'figures/results').glob('*.json'));self.assertEqual(len(files),209)
+        files=list((R/'figures/results').glob('*.json'));self.assertEqual(len(files),210)
         for path in files:
             j=json.loads(path.read_text())
             if j.get('kind')=='run':
                 self.assertIn('MOSAIC',j['evals'])
-                self.assertFalse(any('greedy' in name.lower() or 'MF' in name for name in j['evals']))
+                from mosaic_lib import RUNG_FULL,RUNG_PAIR,RUNG_LOCAL,RUNG_V1,RUNG_AGNOSTIC
+                self.assertLessEqual(set(j['evals']),{RUNG_FULL,RUNG_PAIR,RUNG_LOCAL,RUNG_V1,RUNG_AGNOSTIC,'Permutation'})
                 for k,fields in j['evals']['MOSAIC']['subsets'].items():self.assertEqual(len(fields),int(k))
+            if j.get('kind')=='sens':
+                self.assertEqual(set(j['variants']),{'default','sigma=0.1','sigma=0.5','sigma=1.0','candidates=1','candidates=5','rows=0.5'})
+
+    def test_serving_entrypoint_arguments(self):
+        import shlex
+        output=subprocess.check_output([sys.executable,'scripts/reproduce.py','serving','--dataset','ml1m20','--dry'],cwd=R,text=True)
+        tokens=shlex.split(output.replace('\\','/'))
+        self.assertEqual(tokens[tokens.index('--name')+1],'ml1m20')
+        self.assertEqual(tokens[tokens.index('--budgets')+1],'2,4,6,8,10,12')
 
 
 if __name__=='__main__':unittest.main()

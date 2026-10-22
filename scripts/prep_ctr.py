@@ -9,10 +9,8 @@ Criteo: columns named '0'..'39' ('0' = label, '1'..'13' dense, '14'..'39' catego
 Row order = concatenation of the input files in the order given (ERASE splits 70/20/10 in that order).
 
 Usage
-  python gpu/prep_ctr_lowmem.py avazu  --inputs train.csv valid.csv test.csv --out ERASE/data/avazu/preprocessed_avazu.csv
-  python gpu/prep_ctr_lowmem.py avazu  --inputs train.gz --out ...            (Kaggle raw file, chronological order)
-  python gpu/prep_ctr_lowmem.py criteo --inputs train.txt --out ERASE/data/criteo/preprocessed_criteo.csv   (Kaggle raw)
-  python gpu/prep_ctr_lowmem.py criteo --format x4 --inputs train.csv valid.csv test.csv --out ...  (reczoo/Criteo_x4)"""
+  python scripts/prep_ctr.py avazu --inputs train.csv --out third_party/ERASE/data/avazu/preprocessed_avazu.csv
+  python scripts/prep_ctr.py criteo --inputs train.txt --out third_party/ERASE/data/criteo/preprocessed_criteo.csv"""
 import argparse, os, time
 import numpy as np
 import pandas as pd

@@ -1,6 +1,9 @@
 """Figure 2 of the paper: the construction of Theorem 3.3 with four fields (computed exactly, no data needed).
 Usage:  python make_toy.py   ->  figures/toy.pdf, figures/toy.png"""
-import os
+import argparse, os
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--output-dir',default=os.path.dirname(os.path.abspath(__file__)))
+args=parser.parse_args()
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt, numpy as np
 plt.rcParams.update({"font.family": "serif", "font.size": 7.5, "pdf.fonttype": 42})
@@ -38,6 +41,6 @@ for idx,(pairs,col,best,title) in enumerate([(pairs1,BLUE,(0,1),"problem 1\nbest
         ax.scatter(*pos[i],s=170,color=col if hl else "white",edgecolor=col,linewidth=1.2,zorder=3)
         ax.text(*pos[i],names[i],ha="center",va="center",fontsize=7,color="white" if hl else "#0b0b0b",zorder=4)
     ax.set_title(title,fontsize=6.4,pad=1,color=col,linespacing=1.1)
-OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)),"figures"); os.makedirs(OUT,exist_ok=True)
+OUT=os.path.join(os.path.abspath(args.output_dir),"figures"); os.makedirs(OUT,exist_ok=True)
 fig.savefig(os.path.join(OUT,"toy.pdf"),bbox_inches="tight"); fig.savefig(os.path.join(OUT,"toy.png"),dpi=220,bbox_inches="tight")
 print("importance profiles (identical in both problems):"); print(P1)

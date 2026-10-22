@@ -1,7 +1,7 @@
 # MOSAIC: figures, tables and reported numbers
 
 These scripts rebuild every result figure, every result table and every number quoted in the paper from the result
-files in `results/`. No GPU is needed.
+files in `figures/results/` (relative to the repository root). No GPU is needed.
 
 ## Requirements
 Python 3.9+ with `numpy`, `scipy` and `matplotlib`.
@@ -11,6 +11,13 @@ Python 3.9+ with `numpy`, `scipy` and `matplotlib`.
 python make_figures.py   # result figures, tables and tex/numbers.tex
 python make_toy.py       # Figure 2 (exact construction of Theorem 3.3, no data needed)
 ```
+Run these two commands inside the `figures/` directory. From the repository root, use `python figures/make_figures.py` and `python figures/make_toy.py` instead.
+
+For new experimental outputs, run from the repository root:
+```
+python scripts/reproduce.py figures --results-dir results --output-dir reproduced_figures --reference figures/results/reference_best.json
+```
+All plotted metrics and timings then come from the new directory. The explicitly supplied reference JSON keeps the paper's fixed regret reference. `search_times.json` contains published search-time summaries in the bundled inputs, or measured per-seed search times for new runs.
 Outputs go to `figures/` (PDF and PNG), `tables/` (LaTeX) and `tex/numbers.tex` (LaTeX macros with every number used in
 the text).
 

@@ -6,12 +6,17 @@ from experiment_utils import ROOT,CFG,PY,source,run,execute,baseline
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('stage',choices=['main','controls','mask-training','sensitivity','copies','scale','serving','agreement','timestamp','baselines','figures'])
 p.add_argument('--dataset',choices=['ml1m20','avazu','criteo','ml1m40c']);p.add_argument('--dry',action='store_true')
+p.add_argument('--results-dir',default='figures/results',help='input directory for the figures stage')
+p.add_argument('--output-dir',default='figures',help='output directory for the figures stage')
+p.add_argument('--reference',help='fixed reference JSON for the figures stage')
 ARGS=p.parse_args()
 experiments.DRY=ARGS.dry
 datasets=[ARGS.dataset] if ARGS.dataset else ['ml1m20','avazu','criteo']
 Path('results').mkdir(exist_ok=True)
 if ARGS.stage=='figures':
-    run([PY,'figures/make_figures.py']);run([PY,'figures/make_toy.py'])
+    plot=[PY,'figures/make_figures.py','--results-dir',ARGS.results_dir,'--output-dir',ARGS.output_dir]
+    if ARGS.reference:plot+=['--reference',ARGS.reference]
+    run(plot);run([PY,'figures/make_toy.py','--output-dir',ARGS.output_dir])
 elif ARGS.stage=='copies':
     run([PY,'scripts/make_copies.py','--npz','data/ml1m20.npz','--factor','2','--rate','.1','--seed','2031','--out','data/ml1m40c.npz'])
     run([PY,'scripts/export_erase_ml1m.py','--npz','data/ml1m40c.npz','--out','erase_data_ml1m40c'])
@@ -49,7 +54,8 @@ else:
             if ds!='ml1m20':continue
             for seed in CFG['control_seeds']:execute('agreement',ds,'deepfm',seed,f'results/{ds}_deepfm_s{seed}_agreement.json')
         elif ARGS.stage=='serving':
-            run([PY,'scripts/serving_cost.py']+source(ds)+['--results','results','--out',f'results/{ds}_serving.json'])
+            run([PY,'scripts/serving_cost.py']+source(ds)+['--budgets',CFG['datasets'][ds]['budgets'],
+                 '--name',ds,'--results','results','--out',f'results/{ds}_serving.json'])
         elif ARGS.stage=='baselines':
             for method in ['autofield','lpfs','sfs','shark','mRMR']:
                 for seed in CFG['baseline_seeds']:baseline(ds,method,seed)

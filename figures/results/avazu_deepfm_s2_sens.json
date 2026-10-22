@@ -382,64 +382,6 @@
     "16": 0.7829330138214301
    }
   },
-  "rows=0.25": {
-   "subsets": {
-    "4": [
-     "site_id",
-     "app_id",
-     "device_model",
-     "C14"
-    ],
-    "8": [
-     "site_id",
-     "app_id",
-     "app_category",
-     "device_ip",
-     "device_model",
-     "device_type",
-     "C17",
-     "C18"
-    ],
-    "12": [
-     "hour",
-     "C1",
-     "site_domain",
-     "site_category",
-     "app_id",
-     "device_id",
-     "device_ip",
-     "device_model",
-     "device_conn_type",
-     "C14",
-     "C19",
-     "C20"
-    ],
-    "16": [
-     "hour",
-     "C1",
-     "banner_pos",
-     "site_id",
-     "site_domain",
-     "app_id",
-     "app_domain",
-     "app_category",
-     "device_id",
-     "device_ip",
-     "device_model",
-     "device_type",
-     "device_conn_type",
-     "C14",
-     "C20",
-     "C21"
-    ]
-   },
-   "test_auc": {
-    "4": 0.7575464243678466,
-    "8": 0.7716647916821411,
-    "12": 0.7808380798139334,
-    "16": 0.7830797302401616
-   }
-  },
   "rows=0.5": {
    "subsets": {
     "4": [
@@ -501,7 +443,6 @@
  },
  "moment_seconds": {
   "rows=1.0": 6.6842124462127686,
-  "rows=0.25": 1.6524181365966797,
   "rows=0.5": 3.3110156059265137
  },
  "shared_epochs": 2,

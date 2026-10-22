@@ -35,7 +35,11 @@ def run(argv,cwd=ROOT):
 
 
 def execute(stage,ds,model,seed,out,**kw):
-    if Path(out).exists():return
+    if Path(out).exists():
+        result=json.loads(Path(out).read_text())
+        if not isinstance(result,dict) or 'kind' not in result:
+            raise ValueError(f'Invalid result file: {out}')
+        return
     run(command(stage,ds,model,seed,out,**kw))
 
 
@@ -61,10 +65,14 @@ def baseline(ds,method,seed):
                  '--retrain','False','--data_path',str((ROOT/e['data_path']).resolve())+os.sep,'--num_workers','0',
                  '--epoch',e['epoch'],'--seed',seed],base)
             if not DRY:
+                elapsed=time.time()-start
+                timing_path=ROOT/'results/search_times.json'
+                timings=json.loads(timing_path.read_text()) if timing_path.exists() else {'unit':'seconds','seconds':{}}
+                public_name={'autofield':'AutoField','lpfs':'LPFS','sfs':'SFS','shark':'SHARK'}[method]
+                timings['seconds'].setdefault(ds,{}).setdefault(public_name,{})[str(seed)]=elapsed
+                timing_path.write_text(json.dumps(timings,indent=2))
                 folders=[p for p in base.glob(f'checkpoints/mlp_{method}_no_selection_{e["dataset"]}_*') if p.stat().st_mtime>=start-5]
                 assert folders,'ERASE ranking output not found'
                 chosen=max(folders,key=lambda p:p.stat().st_mtime)
                 out.write_text(','.join(ranking_from_npy(chosen/'feature_rank.npy'))+'\n')
     evaluate_ranking(ds,{'autofield':'AutoField','lpfs':'LPFS','sfs':'SFS','shark':'SHARK'}.get(method,method),out,seed)
-
-

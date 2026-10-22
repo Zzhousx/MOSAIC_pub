@@ -430,72 +430,6 @@
     "12": 0.8064360497533499
    }
   },
-  "rows=0.25": {
-   "subsets": {
-    "2": [
-     "user_id",
-     "movie_id"
-    ],
-    "4": [
-     "user_id",
-     "movie_id",
-     "title",
-     "zip"
-    ],
-    "6": [
-     "user_id",
-     "movie_id",
-     "title",
-     "zip",
-     "year",
-     "hour"
-    ],
-    "8": [
-     "user_id",
-     "movie_id",
-     "title",
-     "occupation",
-     "zip",
-     "year",
-     "first_genre",
-     "hour"
-    ],
-    "10": [
-     "user_id",
-     "movie_id",
-     "title",
-     "age",
-     "zip",
-     "year",
-     "zip3",
-     "weekday",
-     "user_activity",
-     "age_gender"
-    ],
-    "12": [
-     "user_id",
-     "movie_id",
-     "title",
-     "gender",
-     "age",
-     "occupation",
-     "zip",
-     "year",
-     "decade",
-     "first_genre",
-     "hour",
-     "item_popularity"
-    ]
-   },
-   "test_auc": {
-    "2": 0.802119744159499,
-    "4": 0.8032632151628382,
-    "6": 0.8050409743316518,
-    "8": 0.8076785288053511,
-    "10": 0.8084244110940606,
-    "12": 0.812244186063764
-   }
-  },
   "rows=0.5": {
    "subsets": {
     "2": [
@@ -565,7 +499,6 @@
  },
  "moment_seconds": {
   "rows=1.0": 7.62177300453186,
-  "rows=0.25": 1.861523151397705,
   "rows=0.5": 3.7799360752105713
  },
  "shared_epochs": 3,

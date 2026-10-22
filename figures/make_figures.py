@@ -3,14 +3,20 @@ Usage:  python make_figures.py
 Outputs: figures/*.pdf|png, tables/*.tex and tex/numbers.tex (the numbers quoted in the text).
 Seeds: the main comparison uses every selection seed present (DeepFM: 0-4, DCNv2: 0-2); the mechanism ladder and E4 use
 the seeds for which ladder / trainablate outputs exist (0-2); their run-based rungs are restricted to the same seeds."""
-import glob, json, os, sys, itertools
+import argparse, glob, json, os, sys, itertools
 import numpy as np
 
-HERE = os.path.dirname(os.path.abspath(__file__)); D = os.path.join(HERE, "results")
-sys.path.insert(0, HERE)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--results-dir',default=os.path.join(SCRIPT_DIR,'results'))
+parser.add_argument('--output-dir',default=SCRIPT_DIR)
+parser.add_argument('--reference',help='fixed reference JSON; defaults to reference_best.json in results-dir')
+args = parser.parse_args()
+HERE = os.path.abspath(args.output_dir); D = os.path.abspath(args.results_dir)
+sys.path.insert(0, SCRIPT_DIR)
 for _d in ("figures", "tables", "tex"): os.makedirs(os.path.join(HERE, _d), exist_ok=True)
 # reference for the worst regret: best mean test AUC that any selection procedure reached at each budget
-REF = json.load(open(os.path.join(D, "reference_best.json")))["settings"]
+REF = json.load(open(args.reference or os.path.join(D, "reference_best.json")))["settings"]
 from mosaic_lib import budget_surrogate, LADDER, RUNG_AGNOSTIC, RUNG_LOCAL, RUNG_V1, RUNG_PAIR, RUNG_FULL  # noqa: E402
 
 # (key, dataset, backbone, label, macro tag)
@@ -22,9 +28,9 @@ PUB = ["AutoField", "LPFS", "SFS", "SHARK", "FairFS", "Permutation", "mRMR"]
 DEEP = [n for n in PUB if n != "mRMR"]                          # deep / model-based baselines (plotted in Figure 1)
 EXT = ["AutoField", "LPFS", "SFS", "SHARK", "FairFS", "mRMR"]  # external rankings, seeds 2027-2029
 SHOW = PUB + ["MOSAIC"]
-ERASE_MIN = {"ml1m20": dict(AutoField=0.5, LPFS=0.3, SFS=0.4, SHARK=3.7),
-             "avazu": dict(AutoField=14.1, LPFS=11.8, SFS=10.2, SHARK=16.4),
-             "criteo": dict(AutoField=25.5, LPFS=22.4, SFS=22.3, SHARK=37.8)}   # search minutes of the official ERASE code
+TIMINGS = json.load(open(os.path.join(D, 'search_times.json')))
+ERASE_MIN = {ds: {method: float(np.mean(list(seeds.values()))) / 60 for method,seeds in methods.items()}
+             for ds,methods in TIMINGS['seconds'].items()}
 macros = {}
 
 

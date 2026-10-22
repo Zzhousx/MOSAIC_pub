@@ -101,7 +101,7 @@ def budget_surrogate(est, F, k, sigma=KERNEL_SIGMA):
     return g - b.sum(1) * pk, b
 
 
-# ------------------------------------------------------------------------------------------ mechanism ladder (v6)
+# ------------------------------------------------------------------------------------------ controlled-study ladder
 RUNG_AGNOSTIC = "Rank by budget-agnostic importance (p=0.5)"   # first-order mask moment at p=0.5, top-k
 RUNG_LOCAL = "Rank by budget-local importance"                  # first-order mask moment at p ~ k/F, top-k
 RUNG_V1 = "Density-averaged interactions"                                  # pairwise surrogate, density-averaged b, no verification
@@ -138,11 +138,11 @@ def ladder_plan(run):
 
 # ------------------------------------------------------------------------------------------ retrain cache
 class RetrainCache:
-    """JSON cache of retrain results, keyed "mask|seed|full" (final evaluation retrains on all training rows)
-    or "mask|seed|s<rows>e<epochs>" (cheap search retrains). The file stores the protocol settings under
+    """JSON cache of retrain results, keyed "mask|seed|full" (final evaluation retrains on all training rows).
+    The file stores the protocol settings under
     "__config__"; reusing a file with different settings is refused (use a new --out name).
     Entries of other *.cache.json files in the same folder (and in `extra_globs`) with an IDENTICAL config are
-    imported read-only: same subset + same seed + same protocol (+ same search settings, which are part of the key)
+    imported read-only: same subset + same seed + same protocol
     = the same experiment, so it is not repeated."""
 
     def __init__(self, path, config, extra_globs=()):

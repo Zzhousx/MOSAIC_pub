@@ -1,0 +1,48 @@
+{
+  "unit": "seconds",
+  "description": "Published search-time summaries; each value is one reported summary, not a seed-level observation.",
+  "seconds": {
+    "ml1m20": {
+      "AutoField": {
+        "reported": 30.0
+      },
+      "LPFS": {
+        "reported": 18.0
+      },
+      "SFS": {
+        "reported": 24.0
+      },
+      "SHARK": {
+        "reported": 222.0
+      }
+    },
+    "avazu": {
+      "AutoField": {
+        "reported": 846.0
+      },
+      "LPFS": {
+        "reported": 708.0
+      },
+      "SFS": {
+        "reported": 612.0
+      },
+      "SHARK": {
+        "reported": 983.9999999999999
+      }
+    },
+    "criteo": {
+      "AutoField": {
+        "reported": 1530.0
+      },
+      "LPFS": {
+        "reported": 1344.0
+      },
+      "SFS": {
+        "reported": 1338.0
+      },
+      "SHARK": {
+        "reported": 2268.0
+      }
+    }
+  }
+}

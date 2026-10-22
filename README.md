@@ -13,7 +13,7 @@ MOSAIC trains one field-masked model, estimates field and pair effects, builds a
 - `figures/`: the supplied figure/table scripts and the final data used in the paper.
 - `tests/`: CPU correctness and publication-data checks.
 
-This release contains the experiments in the current paper. Development logs, checkpoints, experiment queues and exploratory greedy-comparison or tuning histories are excluded. The data under `figures/results/` are the paper's final plotting inputs, not execution histories. `reference_best.json` records the fixed reference values used by the paper's regret metric.
+This release contains the experiments reported in the paper. The data under `figures/results/` are the final plotting inputs. `reference_best.json` contains the paper's fixed per-budget reference AUCs for the regret metric; these values are not re-estimated from a new run.
 
 ## Install and reproduce figures
 
@@ -27,6 +27,13 @@ python -m unittest discover -s tests -v
 ```
 
 Figures need no GPU. Outputs are written under `figures/figures/`, `figures/tables/` and `figures/tex/`.
+These commands rebuild the submitted figures from the bundled inputs. To plot a complete set of new experiment outputs instead, use:
+
+```bash
+python scripts/reproduce.py figures --results-dir results --output-dir reproduced_figures --reference figures/results/reference_best.json
+```
+
+This reads new results and measured search times from `results/`; it does not mix them with the bundled results. The reference AUCs remain the explicitly supplied fixed paper reference. Hardware-dependent timings will differ. The bundled search-time summaries are stored in `figures/results/search_times.json`; new baseline runs record their own times in `results/search_times.json`.
 
 ## Prepare data
 
@@ -41,10 +48,13 @@ python scripts/prep_ctr.py criteo --inputs /path/to/train.txt --out third_party/
 
 ## Run experiments
 
-Run commands from the repository root. They execute one job at a time and write fresh results under `results/`. Add `--dry` to inspect the commands without running them.
+Run commands from the repository root, with one invocation active at a time. Commands run serially and write to `results/`. Existing result files are retained and skipped; use a clean output directory for a fresh reproduction. Add `--dry` to inspect the commands without running them.
+
+FairFS requires a separate environment. First run `python baselines/setup_fairfs.py`, install `requirements-fairfs.txt` in that environment, and set `FAIRFS_PYTHON` to its Python executable. Run the main experiments before the MovieLens validation-only selection, then the baselines:
 
 ```bash
 python scripts/reproduce.py main
+python baselines/fairfs.py --dataset ml1m20 --select-norm
 python scripts/reproduce.py baselines
 python scripts/reproduce.py controls
 python scripts/reproduce.py mask-training
@@ -60,6 +70,6 @@ python scripts/reproduce.py timestamp
 
 Main comparisons use five selection seeds for DeepFM and three for DCNv2; controls use seeds 0–2. External rankings use seeds 2027–2029. The MovieLens mRMR runs use all training rows; larger datasets use independent 2M-row samples. SHARK importance uses a 100k-row validation sample.
 
-FairFS uses the authors' unmodified DCN implementation and FuxiCTR v2.1.3. Set it up once with `python baselines/setup_fairfs.py`. Use a separate environment with `requirements-fairfs.txt`, and set `FAIRFS_PYTHON` to its Python executable before running baselines. To reproduce MovieLens validation-only regularisation selection, run `python baselines/fairfs.py --dataset ml1m20 --select-norm`. The other two datasets use fixed author settings. FairFS's own final retraining is not used.
+FairFS uses the authors' unmodified DCN implementation and FuxiCTR v2.1.3. MovieLens selects its regularisation strength using validation AUC only; Avazu and Criteo use fixed author settings. Every selected set uses the same final MOSAIC evaluation protocol. Sensitivity uses one shared model per selection seed and varies only the reported kernel widths, candidate counts and half-row moment estimate. Serving measures DCNv2 CPU batch-256 and GPU batch-4096 forward latency on the first DeepFM run's selected sets.
 
 Third-party provenance is listed in `third_party/SOURCES.json`; upstream licenses and notices are retained. No raw data, credentials or manuscript source are included.

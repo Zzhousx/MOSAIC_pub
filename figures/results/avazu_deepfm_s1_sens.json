@@ -382,64 +382,6 @@
     "16": 0.7833028480729644
    }
   },
-  "rows=0.25": {
-   "subsets": {
-    "4": [
-     "site_domain",
-     "app_id",
-     "device_ip",
-     "C17"
-    ],
-    "8": [
-     "site_id",
-     "app_id",
-     "device_id",
-     "device_ip",
-     "device_model",
-     "device_conn_type",
-     "C14",
-     "C15"
-    ],
-    "12": [
-     "banner_pos",
-     "site_id",
-     "site_domain",
-     "app_id",
-     "device_id",
-     "device_ip",
-     "device_model",
-     "device_conn_type",
-     "C14",
-     "C15",
-     "C16",
-     "C19"
-    ],
-    "16": [
-     "hour",
-     "banner_pos",
-     "site_id",
-     "site_category",
-     "app_id",
-     "app_domain",
-     "app_category",
-     "device_id",
-     "device_ip",
-     "device_model",
-     "device_type",
-     "device_conn_type",
-     "C14",
-     "C17",
-     "C18",
-     "C20"
-    ]
-   },
-   "test_auc": {
-    "4": 0.7634926280179348,
-    "8": 0.7790233661861476,
-    "12": 0.7801570227758162,
-    "16": 0.782663696193015
-   }
-  },
   "rows=0.5": {
    "subsets": {
     "4": [
@@ -501,7 +443,6 @@
  },
  "moment_seconds": {
   "rows=1.0": 6.680561065673828,
-  "rows=0.25": 1.6516366004943848,
   "rows=0.5": 3.308263063430786
  },
  "shared_epochs": 2,

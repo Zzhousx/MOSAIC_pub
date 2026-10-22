@@ -2,13 +2,13 @@
   "ERASE": {
     "url": "https://github.com/Applied-Machine-Learning-Lab/ERASE",
     "commit": "525850f45fbfd3c357e016edf72492a10de2bcd6",
-    "included": "current source-only working implementation; optional nni, bounded SHARK ranking and data-loader compatibility",
+    "included": "source subset for AutoField, LPFS, SFS and SHARK with their MLP backbone and data readers; bounded SHARK ranking and data-loader compatibility",
     "SHARK_MAX_SAMPLES": 100000
   },
   "FairFS": {
     "url": "https://github.com/xqwustc/FairFS",
     "commit": "5cebed738341e5040a3287ae9da32aff79fa2daf",
-    "included": "unmodified author DCN source/configuration"
+    "included": "unmodified author DCN method source and Base configuration; dataset/experiment entries are generated for the paper"
   },
   "FuxiCTR": {
     "url": "https://github.com/reczoo/FuxiCTR",
