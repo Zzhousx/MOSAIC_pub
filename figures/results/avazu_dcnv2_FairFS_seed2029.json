@@ -1,0 +1,104 @@
+{
+ "kind": "eval_ranking",
+ "name": "FairFS",
+ "data": "avazu",
+ "model": "dcnv2",
+ "budgets": [
+  4,
+  8,
+  12,
+  16
+ ],
+ "test_auc": {
+  "4": 0.7565687121533079,
+  "8": 0.7796826496149419,
+  "12": 0.7813754349263572,
+  "16": 0.7825889215378455
+ },
+ "subsets": {
+  "4": [
+   "site_id",
+   "site_domain",
+   "app_id",
+   "device_ip"
+  ],
+  "8": [
+   "site_id",
+   "site_domain",
+   "app_id",
+   "device_id",
+   "device_ip",
+   "device_model",
+   "C14",
+   "C17"
+  ],
+  "12": [
+   "hour",
+   "site_id",
+   "site_domain",
+   "app_id",
+   "app_domain",
+   "app_category",
+   "device_id",
+   "device_ip",
+   "device_model",
+   "C14",
+   "C17",
+   "C21"
+  ],
+  "16": [
+   "hour",
+   "banner_pos",
+   "site_id",
+   "site_domain",
+   "app_id",
+   "app_domain",
+   "app_category",
+   "device_id",
+   "device_ip",
+   "device_model",
+   "device_conn_type",
+   "C14",
+   "C16",
+   "C17",
+   "C20",
+   "C21"
+  ]
+ },
+ "ranking": [
+  "device_ip",
+  "site_id",
+  "site_domain",
+  "app_id",
+  "device_id",
+  "device_model",
+  "C14",
+  "C17",
+  "C21",
+  "app_domain",
+  "app_category",
+  "hour",
+  "C20",
+  "C16",
+  "banner_pos",
+  "device_conn_type",
+  "site_category",
+  "C18",
+  "C15",
+  "C19",
+  "C1",
+  "device_type"
+ ],
+ "protocol": {
+  "data": "avazu",
+  "model": "dcnv2",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 4096,
+  "epochs": 2,
+  "sparse_emb": true,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

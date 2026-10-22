@@ -1,0 +1,132 @@
+{
+ "kind": "eval_ranking",
+ "name": "LPFS",
+ "data": "data\\ml1m40c.npz",
+ "model": "deepfm",
+ "budgets": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12
+ ],
+ "test_auc": {
+  "2": 0.8032157777140223,
+  "4": 0.8038589752313188,
+  "6": 0.8061601932017949,
+  "8": 0.8061024728206846,
+  "10": 0.7919370690571105,
+  "12": 0.7932967249897732
+ },
+ "subsets": {
+  "2": [
+   "user_id",
+   "title"
+  ],
+  "4": [
+   "user_id",
+   "movie_id",
+   "title",
+   "item_popularity"
+  ],
+  "6": [
+   "user_id",
+   "movie_id",
+   "title",
+   "zip",
+   "decade",
+   "item_popularity"
+  ],
+  "8": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "title",
+   "zip",
+   "decade",
+   "first_genre",
+   "item_popularity"
+  ],
+  "10": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "timestamp_copy1",
+   "title",
+   "genres",
+   "zip",
+   "decade",
+   "first_genre",
+   "item_popularity"
+  ],
+  "12": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "timestamp",
+   "timestamp_copy1",
+   "title",
+   "genres",
+   "zip",
+   "zip_copy1",
+   "decade",
+   "first_genre",
+   "item_popularity"
+  ]
+ },
+ "ranking": [
+  "user_id",
+  "title",
+  "movie_id",
+  "item_popularity",
+  "zip",
+  "decade",
+  "first_genre",
+  "user_id_copy1",
+  "timestamp_copy1",
+  "genres",
+  "zip_copy1",
+  "timestamp",
+  "item_popularity_copy1",
+  "user_activity",
+  "decade_copy1",
+  "user_activity_copy1",
+  "title_copy1",
+  "gender_copy1",
+  "gender",
+  "movie_id_copy1",
+  "age",
+  "weekday",
+  "n_genres",
+  "zip3",
+  "n_genres_copy1",
+  "age_gender",
+  "year",
+  "weekday_copy1",
+  "occupation",
+  "zip3_copy1",
+  "age_gender_copy1",
+  "genres_copy1",
+  "first_genre_copy1",
+  "age_copy1",
+  "zip1_copy1",
+  "occupation_copy1",
+  "year_copy1",
+  "zip1",
+  "hour",
+  "hour_copy1"
+ ],
+ "protocol": {
+  "data": "ml1m40c.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

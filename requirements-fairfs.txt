@@ -1,0 +1,10 @@
+# Separate FairFS/FuxiCTR environment; do not upgrade scikit-learn past the compatible API.
+numpy==1.26.4
+scipy==1.14.1
+pandas==2.2.3
+scikit-learn==1.3.2
+h5py==3.16.0
+torch==2.6.0
+PyYAML>=6.0
+tqdm>=4.65
+Keras-Preprocessing==1.1.2

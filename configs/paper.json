@@ -1,0 +1,130 @@
+{
+  "datasets": {
+    "ml1m20": {
+      "source": {
+        "npz": "data/ml1m20.npz"
+      },
+      "budgets": "2,4,6,8,10,12",
+      "batch_size": 1024,
+      "epochs": 10,
+      "shared_min_epochs": 3,
+      "max_train_rows": null,
+      "max_eval_rows": null,
+      "sparse_emb": false
+    },
+    "avazu": {
+      "source": {
+        "erase_dataset": "avazu",
+        "data_path": "third_party/ERASE/data/"
+      },
+      "budgets": "4,8,12,16",
+      "batch_size": 4096,
+      "epochs": 2,
+      "shared_min_epochs": 1,
+      "max_train_rows": null,
+      "max_eval_rows": null,
+      "sparse_emb": true
+    },
+    "criteo": {
+      "source": {
+        "erase_dataset": "criteo",
+        "data_path": "third_party/ERASE/data/"
+      },
+      "budgets": "5,10,15,20,25",
+      "batch_size": 4096,
+      "epochs": 2,
+      "shared_min_epochs": 1,
+      "max_train_rows": null,
+      "max_eval_rows": null,
+      "sparse_emb": true
+    },
+    "ml1m40c": {
+      "source": {
+        "npz": "data/ml1m40c.npz"
+      },
+      "budgets": "2,4,6,8,10,12",
+      "batch_size": 1024,
+      "epochs": 10,
+      "shared_min_epochs": 3,
+      "max_train_rows": null,
+      "max_eval_rows": null,
+      "sparse_emb": false,
+      "eval_models": [
+        "deepfm"
+      ]
+    }
+  },
+  "eval_seeds": [
+    101,
+    102,
+    103
+  ],
+  "main_seeds": {
+    "deepfm": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "dcnv2": [
+      0,
+      1,
+      2
+    ]
+  },
+  "control_seeds": [
+    0,
+    1,
+    2
+  ],
+  "baseline_seeds": [
+    2027,
+    2028,
+    2029
+  ],
+  "erase": {
+    "ml1m20": {
+      "dataset": "movielens-1m",
+      "data_path": "erase_data_ml1m20/",
+      "epoch": 10
+    },
+    "avazu": {
+      "dataset": "avazu",
+      "data_path": "third_party/ERASE/data/",
+      "epoch": 1
+    },
+    "criteo": {
+      "dataset": "criteo",
+      "data_path": "third_party/ERASE/data/",
+      "epoch": 1
+    },
+    "ml1m40c": {
+      "dataset": "movielens-1m",
+      "data_path": "erase_data_ml1m40c/",
+      "epoch": 10
+    }
+  },
+  "fairfs": {
+    "ml1m20": {
+      "normk": 1.0,
+      "interp": 5
+    },
+    "avazu": {
+      "normk": 0.01,
+      "interp": 10
+    },
+    "criteo": {
+      "normk": 10.0,
+      "interp": 5
+    }
+  },
+  "fairfs_validation_grid": [
+    0,
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+  ]
+}

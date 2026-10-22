@@ -1,0 +1,193 @@
+{
+ "kind": "serving_cost",
+ "ds": "ml1m20",
+ "dim": 8,
+ "fields": [
+  "user_id",
+  "movie_id",
+  "timestamp",
+  "title",
+  "genres",
+  "gender",
+  "age",
+  "occupation",
+  "zip",
+  "year",
+  "decade",
+  "first_genre",
+  "n_genres",
+  "zip3",
+  "zip1",
+  "hour",
+  "weekday",
+  "user_activity",
+  "item_popularity",
+  "age_gender"
+ ],
+ "card": [
+  6040,
+  3706,
+  458455,
+  3706,
+  301,
+  2,
+  7,
+  21,
+  3439,
+  81,
+  10,
+  18,
+  6,
+  678,
+  10,
+  24,
+  7,
+  8,
+  12,
+  14
+ ],
+ "bytes_per_value": 36,
+ "gpu": "NVIDIA GeForce RTX 4060 Ti",
+ "cpu_threads": 1,
+ "latency": {
+  "2": {
+   "fields": [
+    "user_id",
+    "title"
+   ],
+   "emb_mb": 0.350856,
+   "deepfm_cpu_b1_ms": 0.12013499974273145,
+   "deepfm_cpu_b256_ms": 1.588649998884648,
+   "deepfm_gpu_b4096_ms": 0.5119209998520091,
+   "dcnv2_cpu_b1_ms": 0.1442445005523041,
+   "dcnv2_cpu_b256_ms": 1.61013999953866,
+   "dcnv2_gpu_b4096_ms": 0.5484714999329299
+  },
+  "4": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "zip"
+   ],
+   "emb_mb": 0.608076,
+   "deepfm_cpu_b1_ms": 0.13286650006193668,
+   "deepfm_cpu_b256_ms": 1.6773439990356565,
+   "deepfm_gpu_b4096_ms": 0.47107550024520606,
+   "dcnv2_cpu_b1_ms": 0.1410715002566576,
+   "dcnv2_cpu_b256_ms": 1.724506001919508,
+   "dcnv2_gpu_b4096_ms": 0.5216900003142655
+  },
+  "6": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "zip",
+    "decade",
+    "age_gender"
+   ],
+   "emb_mb": 0.60894,
+   "deepfm_cpu_b1_ms": 0.1351509999949485,
+   "deepfm_cpu_b256_ms": 1.6997719998471439,
+   "deepfm_gpu_b4096_ms": 0.49530000018421566,
+   "dcnv2_cpu_b1_ms": 0.1456290000351146,
+   "dcnv2_cpu_b256_ms": 1.6814460000023246,
+   "dcnv2_gpu_b4096_ms": 0.5228055000770837
+  },
+  "8": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "gender",
+    "zip",
+    "year",
+    "hour",
+    "age_gender"
+   ],
+   "emb_mb": 0.612432,
+   "deepfm_cpu_b1_ms": 0.12852400017436594,
+   "deepfm_cpu_b256_ms": 1.6986999986693263,
+   "deepfm_gpu_b4096_ms": 0.499557500006631,
+   "dcnv2_cpu_b1_ms": 0.15248349984176457,
+   "dcnv2_cpu_b256_ms": 1.7783419997431338,
+   "dcnv2_gpu_b4096_ms": 0.5400525004370138
+  },
+  "10": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "gender",
+    "zip",
+    "year",
+    "first_genre",
+    "zip1",
+    "hour",
+    "age_gender"
+   ],
+   "emb_mb": 0.61344,
+   "deepfm_cpu_b1_ms": 0.12503850040957332,
+   "deepfm_cpu_b256_ms": 1.7199619999155402,
+   "deepfm_gpu_b4096_ms": 0.511877000099048,
+   "dcnv2_cpu_b1_ms": 0.13958800002001226,
+   "dcnv2_cpu_b256_ms": 1.8851480004377663,
+   "dcnv2_gpu_b4096_ms": 0.5563389998860657
+  },
+  "12": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "gender",
+    "occupation",
+    "zip",
+    "year",
+    "first_genre",
+    "zip1",
+    "hour",
+    "user_activity",
+    "age_gender"
+   ],
+   "emb_mb": 0.614484,
+   "deepfm_cpu_b1_ms": 0.14076250023208559,
+   "deepfm_cpu_b256_ms": 1.7556799994781613,
+   "deepfm_gpu_b4096_ms": 0.512404500041157,
+   "dcnv2_cpu_b1_ms": 0.15586249995976686,
+   "dcnv2_cpu_b256_ms": 1.8796600005589426,
+   "dcnv2_gpu_b4096_ms": 0.579890999943018
+  },
+  "20": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "timestamp",
+    "title",
+    "genres",
+    "gender",
+    "age",
+    "occupation",
+    "zip",
+    "year",
+    "decade",
+    "first_genre",
+    "n_genres",
+    "zip3",
+    "zip1",
+    "hour",
+    "weekday",
+    "user_activity",
+    "item_popularity",
+    "age_gender"
+   ],
+   "emb_mb": 17.15562,
+   "deepfm_cpu_b1_ms": 0.13405949983280152,
+   "deepfm_cpu_b256_ms": 1.8830400006845593,
+   "deepfm_gpu_b4096_ms": 0.5564129998674616,
+   "dcnv2_cpu_b1_ms": 0.15516949992161244,
+   "dcnv2_cpu_b256_ms": 2.273146000225097,
+   "dcnv2_gpu_b4096_ms": 0.66490099998191
+  }
+ }
+}

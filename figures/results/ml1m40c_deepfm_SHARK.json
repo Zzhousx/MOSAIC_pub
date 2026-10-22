@@ -1,0 +1,132 @@
+{
+ "kind": "eval_ranking",
+ "name": "SHARK",
+ "data": "data\\ml1m40c.npz",
+ "model": "deepfm",
+ "budgets": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12
+ ],
+ "test_auc": {
+  "2": 0.7254089698976399,
+  "4": 0.8038589752313188,
+  "6": 0.8055996902064307,
+  "8": 0.8061024728206846,
+  "10": 0.8073171606134322,
+  "12": 0.8047143028711109
+ },
+ "subsets": {
+  "2": [
+   "user_id",
+   "item_popularity"
+  ],
+  "4": [
+   "user_id",
+   "movie_id",
+   "title",
+   "item_popularity"
+  ],
+  "6": [
+   "user_id",
+   "movie_id",
+   "title",
+   "zip",
+   "first_genre",
+   "item_popularity"
+  ],
+  "8": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "title",
+   "zip",
+   "decade",
+   "first_genre",
+   "item_popularity"
+  ],
+  "10": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "title",
+   "genres",
+   "zip",
+   "decade",
+   "first_genre",
+   "user_activity",
+   "item_popularity"
+  ],
+  "12": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "title",
+   "title_copy1",
+   "genres",
+   "zip",
+   "zip_copy1",
+   "decade",
+   "first_genre",
+   "user_activity",
+   "item_popularity"
+  ]
+ },
+ "ranking": [
+  "user_id",
+  "item_popularity",
+  "title",
+  "movie_id",
+  "first_genre",
+  "zip",
+  "decade",
+  "user_id_copy1",
+  "genres",
+  "user_activity",
+  "title_copy1",
+  "zip_copy1",
+  "zip3",
+  "year",
+  "timestamp",
+  "movie_id_copy1",
+  "timestamp_copy1",
+  "genres_copy1",
+  "gender",
+  "decade_copy1",
+  "zip3_copy1",
+  "n_genres",
+  "item_popularity_copy1",
+  "age_gender",
+  "first_genre_copy1",
+  "year_copy1",
+  "age",
+  "occupation_copy1",
+  "user_activity_copy1",
+  "occupation",
+  "hour",
+  "zip1_copy1",
+  "age_copy1",
+  "weekday_copy1",
+  "hour_copy1",
+  "weekday",
+  "zip1",
+  "n_genres_copy1",
+  "age_gender_copy1",
+  "gender_copy1"
+ ],
+ "protocol": {
+  "data": "ml1m40c.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

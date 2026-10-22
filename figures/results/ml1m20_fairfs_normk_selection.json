@@ -1,0 +1,14 @@
+{
+ "criterion": "mean validation AUC of retrained top-k subsets (DeepFM, eval seeds 101-103)",
+ "ds": "ml1m20",
+ "seed": "2027",
+ "candidates": {
+  "FairFSk0": 0.7855590836736549,
+  "FairFSk0p01": 0.7855590836736549,
+  "FairFSk0p1": 0.7855590836736549,
+  "FairFSk1": 0.7884050078161573,
+  "FairFSk10": 0.7053324159677291,
+  "FairFSk100": 0.761282339452426
+ },
+ "selected": "FairFSk1"
+}

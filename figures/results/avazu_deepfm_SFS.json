@@ -1,0 +1,104 @@
+{
+ "kind": "eval_ranking",
+ "name": "SFS",
+ "data": "avazu",
+ "model": "deepfm",
+ "budgets": [
+  4,
+  8,
+  12,
+  16
+ ],
+ "test_auc": {
+  "4": 0.7625614922236054,
+  "8": 0.7737590895757029,
+  "12": 0.7806124035009107,
+  "16": 0.7829731584201106
+ },
+ "subsets": {
+  "4": [
+   "site_id",
+   "app_id",
+   "device_id",
+   "device_ip"
+  ],
+  "8": [
+   "banner_pos",
+   "site_id",
+   "site_domain",
+   "app_id",
+   "device_id",
+   "device_ip",
+   "device_model",
+   "C16"
+  ],
+  "12": [
+   "banner_pos",
+   "site_id",
+   "site_domain",
+   "site_category",
+   "app_id",
+   "device_id",
+   "device_ip",
+   "device_model",
+   "C14",
+   "C16",
+   "C17",
+   "C21"
+  ],
+  "16": [
+   "hour",
+   "C1",
+   "banner_pos",
+   "site_id",
+   "site_domain",
+   "site_category",
+   "app_id",
+   "app_category",
+   "device_id",
+   "device_ip",
+   "device_model",
+   "C14",
+   "C16",
+   "C17",
+   "C20",
+   "C21"
+  ]
+ },
+ "ranking": [
+  "device_ip",
+  "app_id",
+  "site_id",
+  "device_id",
+  "site_domain",
+  "banner_pos",
+  "device_model",
+  "C16",
+  "site_category",
+  "C14",
+  "C17",
+  "C21",
+  "C20",
+  "C1",
+  "hour",
+  "app_category",
+  "device_type",
+  "app_domain",
+  "device_conn_type",
+  "C19",
+  "C15",
+  "C18"
+ ],
+ "protocol": {
+  "data": "avazu",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 4096,
+  "epochs": 2,
+  "sparse_emb": true,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

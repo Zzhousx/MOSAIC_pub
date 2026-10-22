@@ -1,0 +1,407 @@
+{
+ "kind": "ladder",
+ "version": "v2",
+ "data": "avazu",
+ "model": "deepfm",
+ "mseed": 2,
+ "budgets": [
+  4,
+  8,
+  12,
+  16
+ ],
+ "fields": [
+  "hour",
+  "C1",
+  "banner_pos",
+  "site_id",
+  "site_domain",
+  "site_category",
+  "app_id",
+  "app_domain",
+  "app_category",
+  "device_id",
+  "device_ip",
+  "device_model",
+  "device_type",
+  "device_conn_type",
+  "C14",
+  "C15",
+  "C16",
+  "C17",
+  "C18",
+  "C19",
+  "C20",
+  "C21"
+ ],
+ "protocol": {
+  "data": "avazu",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 4096,
+  "epochs": 2,
+  "sparse_emb": true,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ },
+ "source": "avazu_deepfm_s2_v2.json",
+ "rederived": [
+  4,
+  4
+ ],
+ "rungs": {
+  "Rank by budget-agnostic importance (p=0.5)": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_ip"
+    ],
+    "8": [
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17",
+     "C19",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "site_category",
+     "app_id",
+     "app_domain",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17",
+     "C19",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7568071828164923,
+    "8": 0.7799650218624526,
+    "12": 0.7815420422066862,
+    "16": 0.7828185951967473
+   },
+   "test_auc_std": {
+    "4": 0.00034264470313227855,
+    "8": 0.00016026657384885738,
+    "12": 0.0002537019024265706,
+    "16": 3.5200049098951814e-05
+   },
+   "val_auc": {
+    "4": 0.7565897656282766,
+    "8": 0.7797548970070145,
+    "12": 0.7813783469728582,
+    "16": 0.7825413870395509
+   }
+  },
+  "Rank by budget-local importance": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "site_domain",
+     "C14",
+     "C17"
+    ],
+    "8": [
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17",
+     "C20",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_conn_type",
+     "C14",
+     "C15",
+     "C17",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7320903692775881,
+    "8": 0.7799650218624526,
+    "12": 0.7820035268182299,
+    "16": 0.7830711633618371
+   },
+   "test_auc_std": {
+    "4": 5.202501239888397e-05,
+    "8": 0.00016026657384885738,
+    "12": 0.0002304828774229029,
+    "16": 0.00036714776248483174
+   },
+   "val_auc": {
+    "4": 0.7316582473856811,
+    "8": 0.7797548970070145,
+    "12": 0.7818128875466805,
+    "16": 0.7828274300268275
+   }
+  },
+  "Density-averaged interactions": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "app_id",
+     "device_ip",
+     "C14"
+    ],
+    "8": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14"
+    ],
+    "12": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C18",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C15",
+     "C18",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7667384388278337,
+    "8": 0.7812916046036724,
+    "12": 0.7813798786533056,
+    "16": 0.7829728013967303
+   },
+   "test_auc_std": {
+    "4": 0.00027852052459387234,
+    "8": 0.0003274202403235825,
+    "12": 0.00011087358460666747,
+    "16": 0.0005312263721685344
+   },
+   "val_auc": {
+    "4": 0.7665076208326279,
+    "8": 0.7811786871344375,
+    "12": 0.7812128062715912,
+    "16": 0.7827567438521613
+   }
+  },
+  "MOSAIC w/o verification": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "app_id",
+     "device_ip",
+     "C14"
+    ],
+    "8": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14"
+    ],
+    "12": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C18",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C16",
+     "C18",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7667384388278337,
+    "8": 0.7812916046036724,
+    "12": 0.7813798786533056,
+    "16": 0.7828754961691496
+   },
+   "test_auc_std": {
+    "4": 0.00027852052459387234,
+    "8": 0.0003274202403235825,
+    "12": 0.00011087358460666747,
+    "16": 0.00028643893708219854
+   },
+   "val_auc": {
+    "4": 0.7665076208326279,
+    "8": 0.7811786871344375,
+    "12": 0.7812128062715912,
+    "16": 0.7826780127406304
+   }
+  },
+  "MOSAIC": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "app_id",
+     "device_ip",
+     "C14"
+    ],
+    "8": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14"
+    ],
+    "12": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "C14",
+     "C18",
+     "C20",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C15",
+     "C18",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7667384388278337,
+    "8": 0.7812916046036724,
+    "12": 0.7821320234290984,
+    "16": 0.7829728013967303
+   },
+   "test_auc_std": {
+    "4": 0.00027852052459387234,
+    "8": 0.0003274202403235825,
+    "12": 0.000241695915815318,
+    "16": 0.0005312263721685344
+   },
+   "val_auc": {
+    "4": 0.7665076208326279,
+    "8": 0.7811786871344375,
+    "12": 0.7819246304627945,
+    "16": 0.7827567438521613
+   }
+  }
+ },
+ "all_fields_test_auc": 0.7830215447270049
+}

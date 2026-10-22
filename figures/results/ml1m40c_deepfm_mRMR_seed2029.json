@@ -1,0 +1,132 @@
+{
+ "kind": "eval_ranking",
+ "name": "mRMR",
+ "data": "data\\ml1m40c.npz",
+ "model": "deepfm",
+ "budgets": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12
+ ],
+ "test_auc": {
+  "2": 0.7299548050500043,
+  "4": 0.7326516407886151,
+  "6": 0.7505023900750242,
+  "8": 0.7514925395645452,
+  "10": 0.7519958313820241,
+  "12": 0.7519477189730147
+ },
+ "subsets": {
+  "2": [
+   "movie_id",
+   "weekday_copy1"
+  ],
+  "4": [
+   "movie_id",
+   "gender_copy1",
+   "zip1_copy1",
+   "weekday_copy1"
+  ],
+  "6": [
+   "movie_id",
+   "timestamp",
+   "gender_copy1",
+   "zip1_copy1",
+   "weekday_copy1",
+   "user_activity_copy1"
+  ],
+  "8": [
+   "movie_id",
+   "timestamp",
+   "gender_copy1",
+   "age_copy1",
+   "zip1_copy1",
+   "hour_copy1",
+   "weekday_copy1",
+   "user_activity_copy1"
+  ],
+  "10": [
+   "movie_id",
+   "timestamp",
+   "timestamp_copy1",
+   "gender_copy1",
+   "age_copy1",
+   "occupation_copy1",
+   "zip1_copy1",
+   "hour_copy1",
+   "weekday_copy1",
+   "user_activity_copy1"
+  ],
+  "12": [
+   "movie_id",
+   "timestamp",
+   "timestamp_copy1",
+   "gender",
+   "gender_copy1",
+   "age_copy1",
+   "occupation_copy1",
+   "n_genres_copy1",
+   "zip1_copy1",
+   "hour_copy1",
+   "weekday_copy1",
+   "user_activity_copy1"
+  ]
+ },
+ "ranking": [
+  "movie_id",
+  "weekday_copy1",
+  "zip1_copy1",
+  "gender_copy1",
+  "user_activity_copy1",
+  "timestamp",
+  "age_copy1",
+  "hour_copy1",
+  "timestamp_copy1",
+  "occupation_copy1",
+  "gender",
+  "n_genres_copy1",
+  "decade_copy1",
+  "item_popularity_copy1",
+  "user_activity",
+  "weekday",
+  "age",
+  "first_genre_copy1",
+  "zip1",
+  "decade",
+  "n_genres",
+  "hour",
+  "item_popularity",
+  "occupation",
+  "age_gender_copy1",
+  "first_genre",
+  "year_copy1",
+  "age_gender",
+  "zip3_copy1",
+  "year",
+  "genres_copy1",
+  "zip3",
+  "genres",
+  "movie_id_copy1",
+  "zip_copy1",
+  "title_copy1",
+  "zip",
+  "title",
+  "user_id_copy1",
+  "user_id"
+ ],
+ "protocol": {
+  "data": "ml1m40c.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

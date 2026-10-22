@@ -1,0 +1,19 @@
+{
+  "ERASE": {
+    "url": "https://github.com/Applied-Machine-Learning-Lab/ERASE",
+    "commit": "525850f45fbfd3c357e016edf72492a10de2bcd6",
+    "included": "current source-only working implementation; optional nni, bounded SHARK ranking and data-loader compatibility",
+    "SHARK_MAX_SAMPLES": 100000
+  },
+  "FairFS": {
+    "url": "https://github.com/xqwustc/FairFS",
+    "commit": "5cebed738341e5040a3287ae9da32aff79fa2daf",
+    "included": "unmodified author DCN source/configuration"
+  },
+  "FuxiCTR": {
+    "url": "https://github.com/reczoo/FuxiCTR",
+    "tag": "v2.1.3",
+    "commit": "f6a7dcdef84f46e0427f59a5950c3cfcc0407af3",
+    "included": false
+  }
+}

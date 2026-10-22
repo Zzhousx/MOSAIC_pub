@@ -1,0 +1,467 @@
+{
+ "kind": "ladder",
+ "version": "v2",
+ "data": "data/ml1m20.npz",
+ "model": "deepfm",
+ "mseed": 2,
+ "budgets": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12
+ ],
+ "fields": [
+  "user_id",
+  "movie_id",
+  "timestamp",
+  "title",
+  "genres",
+  "gender",
+  "age",
+  "occupation",
+  "zip",
+  "year",
+  "decade",
+  "first_genre",
+  "n_genres",
+  "zip3",
+  "zip1",
+  "hour",
+  "weekday",
+  "user_activity",
+  "item_popularity",
+  "age_gender"
+ ],
+ "protocol": {
+  "data": "ml1m20.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ },
+ "source": "ml1m20_deepfm_s2_v2.json",
+ "rederived": [
+  6,
+  6
+ ],
+ "rungs": {
+  "Rank by budget-agnostic importance (p=0.5)": {
+   "subsets": {
+    "2": [
+     "user_id",
+     "title"
+    ],
+    "4": [
+     "user_id",
+     "movie_id",
+     "title",
+     "zip"
+    ],
+    "6": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "item_popularity"
+    ],
+    "8": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "decade",
+     "zip3",
+     "item_popularity"
+    ],
+    "10": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "year",
+     "decade",
+     "zip3",
+     "item_popularity",
+     "age_gender"
+    ],
+    "12": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "occupation",
+     "zip",
+     "year",
+     "decade",
+     "first_genre",
+     "zip3",
+     "item_popularity",
+     "age_gender"
+    ]
+   },
+   "test_auc": {
+    "2": 0.8024953780875129,
+    "4": 0.8032632151628382,
+    "6": 0.805697745510494,
+    "8": 0.8079522439486994,
+    "10": 0.8116229335826732,
+    "12": 0.8115128597051675
+   },
+   "test_auc_std": {
+    "2": 0.00013135613063829077,
+    "4": 0.00026514153227441073,
+    "6": 0.000442187119585597,
+    "8": 0.00015973276799202533,
+    "10": 0.0001512350369488988,
+    "12": 9.906920968898484e-05
+   },
+   "val_auc": {
+    "2": 0.8049238625997052,
+    "4": 0.8051147830045324,
+    "6": 0.808272202921736,
+    "8": 0.8105875663151862,
+    "10": 0.8140340264784095,
+    "12": 0.8137466171991526
+   }
+  },
+  "Rank by budget-local importance": {
+   "subsets": {
+    "2": [
+     "movie_id",
+     "title"
+    ],
+    "4": [
+     "user_id",
+     "movie_id",
+     "title",
+     "zip"
+    ],
+    "6": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "item_popularity"
+    ],
+    "8": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "year",
+     "zip3",
+     "item_popularity"
+    ],
+    "10": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "year",
+     "decade",
+     "zip3",
+     "item_popularity",
+     "age_gender"
+    ],
+    "12": [
+     "user_id",
+     "movie_id",
+     "title",
+     "genres",
+     "zip",
+     "year",
+     "decade",
+     "first_genre",
+     "zip3",
+     "weekday",
+     "item_popularity",
+     "age_gender"
+    ]
+   },
+   "test_auc": {
+    "2": 0.7302027880433912,
+    "4": 0.8032632151628382,
+    "6": 0.805697745510494,
+    "8": 0.8080487230955917,
+    "10": 0.8116229335826732,
+    "12": 0.8116744593169969
+   },
+   "test_auc_std": {
+    "2": 8.070298928429365e-05,
+    "4": 0.00026514153227441073,
+    "6": 0.000442187119585597,
+    "8": 0.0007514687132491487,
+    "10": 0.0001512350369488988,
+    "12": 0.00019845840584662163
+   },
+   "val_auc": {
+    "2": 0.7328773884132899,
+    "4": 0.8051147830045324,
+    "6": 0.808272202921736,
+    "8": 0.8109659187012906,
+    "10": 0.8140340264784095,
+    "12": 0.8140038400959223
+   }
+  },
+  "Density-averaged interactions": {
+   "subsets": {
+    "2": [
+     "user_id",
+     "title"
+    ],
+    "4": [
+     "user_id",
+     "movie_id",
+     "title",
+     "zip"
+    ],
+    "6": [
+     "user_id",
+     "movie_id",
+     "title",
+     "occupation",
+     "zip",
+     "zip1"
+    ],
+    "8": [
+     "user_id",
+     "movie_id",
+     "title",
+     "occupation",
+     "zip",
+     "n_genres",
+     "zip1",
+     "age_gender"
+    ],
+    "10": [
+     "user_id",
+     "movie_id",
+     "title",
+     "gender",
+     "occupation",
+     "zip",
+     "n_genres",
+     "zip1",
+     "hour",
+     "age_gender"
+    ],
+    "12": [
+     "user_id",
+     "movie_id",
+     "title",
+     "gender",
+     "occupation",
+     "zip",
+     "year",
+     "first_genre",
+     "zip1",
+     "hour",
+     "user_activity",
+     "age_gender"
+    ]
+   },
+   "test_auc": {
+    "2": 0.8024953780875129,
+    "4": 0.8032632151628382,
+    "6": 0.8031699044900575,
+    "8": 0.8069024854304875,
+    "10": 0.8074393876609482,
+    "12": 0.8097083475252935
+   },
+   "test_auc_std": {
+    "2": 0.00013135613063829077,
+    "4": 0.00026514153227441073,
+    "6": 0.0004009643175545593,
+    "8": 0.0008941089410153375,
+    "10": 0.0013281311064033067,
+    "12": 0.0013578860248859993
+   },
+   "val_auc": {
+    "2": 0.8049238625997052,
+    "4": 0.8051147830045324,
+    "6": 0.8054211960067964,
+    "8": 0.8087603505137867,
+    "10": 0.809020429144705,
+    "12": 0.8119254156707716
+   }
+  },
+  "MOSAIC w/o verification": {
+   "subsets": {
+    "2": [
+     "user_id",
+     "title"
+    ],
+    "4": [
+     "user_id",
+     "movie_id",
+     "title",
+     "zip"
+    ],
+    "6": [
+     "user_id",
+     "movie_id",
+     "title",
+     "gender",
+     "zip",
+     "hour"
+    ],
+    "8": [
+     "user_id",
+     "movie_id",
+     "title",
+     "occupation",
+     "zip",
+     "n_genres",
+     "zip1",
+     "age_gender"
+    ],
+    "10": [
+     "user_id",
+     "movie_id",
+     "title",
+     "age",
+     "occupation",
+     "zip",
+     "decade",
+     "n_genres",
+     "zip1",
+     "age_gender"
+    ],
+    "12": [
+     "user_id",
+     "movie_id",
+     "title",
+     "age",
+     "occupation",
+     "zip",
+     "decade",
+     "n_genres",
+     "zip3",
+     "zip1",
+     "hour",
+     "age_gender"
+    ]
+   },
+   "test_auc": {
+    "2": 0.8024953780875129,
+    "4": 0.8032632151628382,
+    "6": 0.8060304120412495,
+    "8": 0.8069024854304875,
+    "10": 0.8098505798229212,
+    "12": 0.8088977431065748
+   },
+   "test_auc_std": {
+    "2": 0.00013135613063829077,
+    "4": 0.00026514153227441073,
+    "6": 0.0005321855193918602,
+    "8": 0.0008941089410153375,
+    "10": 0.00047624250578774885,
+    "12": 0.0001419268655419941
+   },
+   "val_auc": {
+    "2": 0.8049238625997052,
+    "4": 0.8051147830045324,
+    "6": 0.8072504797865228,
+    "8": 0.8087603505137867,
+    "10": 0.8117690665396062,
+    "12": 0.8107637733213529
+   }
+  },
+  "MOSAIC": {
+   "subsets": {
+    "2": [
+     "user_id",
+     "title"
+    ],
+    "4": [
+     "user_id",
+     "movie_id",
+     "title",
+     "zip"
+    ],
+    "6": [
+     "user_id",
+     "movie_id",
+     "title",
+     "gender",
+     "zip",
+     "hour"
+    ],
+    "8": [
+     "user_id",
+     "movie_id",
+     "title",
+     "occupation",
+     "zip",
+     "decade",
+     "n_genres",
+     "zip1"
+    ],
+    "10": [
+     "user_id",
+     "movie_id",
+     "title",
+     "gender",
+     "occupation",
+     "zip",
+     "decade",
+     "n_genres",
+     "zip1",
+     "age_gender"
+    ],
+    "12": [
+     "user_id",
+     "movie_id",
+     "title",
+     "gender",
+     "age",
+     "zip",
+     "decade",
+     "n_genres",
+     "zip3",
+     "hour",
+     "weekday",
+     "age_gender"
+    ]
+   },
+   "test_auc": {
+    "2": 0.8024953780875129,
+    "4": 0.8032632151628382,
+    "6": 0.8060304120412495,
+    "8": 0.8053750196931007,
+    "10": 0.808557387729853,
+    "12": 0.808685345495561
+   },
+   "test_auc_std": {
+    "2": 0.00013135613063829077,
+    "4": 0.00026514153227441073,
+    "6": 0.0005321855193918602,
+    "8": 0.0005457971250041729,
+    "10": 0.0012315798005209859,
+    "12": 0.0005966764354487562
+   },
+   "val_auc": {
+    "2": 0.8049238625997052,
+    "4": 0.8051147830045324,
+    "6": 0.8072504797865228,
+    "8": 0.8077364231994736,
+    "10": 0.8107158638814594,
+    "12": 0.8106108268236109
+   }
+  }
+ },
+ "all_fields_test_auc": 0.7920511227382908
+}

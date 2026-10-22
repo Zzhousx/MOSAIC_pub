@@ -1,0 +1,132 @@
+{
+ "kind": "eval_ranking",
+ "name": "AutoField",
+ "data": "data\\ml1m40c.npz",
+ "model": "deepfm",
+ "budgets": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12
+ ],
+ "test_auc": {
+  "2": 0.8019832144879734,
+  "4": 0.8013833979762328,
+  "6": 0.7991540514363225,
+  "8": 0.8014331482495525,
+  "10": 0.8022472894760496,
+  "12": 0.8037399086803063
+ },
+ "subsets": {
+  "2": [
+   "user_id",
+   "movie_id"
+  ],
+  "4": [
+   "user_id",
+   "movie_id",
+   "title",
+   "title_copy1"
+  ],
+  "6": [
+   "user_id",
+   "movie_id",
+   "movie_id_copy1",
+   "title",
+   "title_copy1",
+   "genres"
+  ],
+  "8": [
+   "user_id",
+   "movie_id",
+   "movie_id_copy1",
+   "title",
+   "title_copy1",
+   "genres",
+   "genres_copy1",
+   "item_popularity_copy1"
+  ],
+  "10": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "movie_id_copy1",
+   "title",
+   "title_copy1",
+   "genres",
+   "genres_copy1",
+   "zip",
+   "item_popularity_copy1"
+  ],
+  "12": [
+   "user_id",
+   "user_id_copy1",
+   "movie_id",
+   "movie_id_copy1",
+   "title",
+   "title_copy1",
+   "genres",
+   "genres_copy1",
+   "age",
+   "zip",
+   "zip_copy1",
+   "item_popularity_copy1"
+  ]
+ },
+ "ranking": [
+  "movie_id",
+  "user_id",
+  "title",
+  "title_copy1",
+  "movie_id_copy1",
+  "genres",
+  "item_popularity_copy1",
+  "genres_copy1",
+  "user_id_copy1",
+  "zip",
+  "age",
+  "zip_copy1",
+  "item_popularity",
+  "zip3",
+  "decade",
+  "age_copy1",
+  "user_activity_copy1",
+  "first_genre",
+  "first_genre_copy1",
+  "hour",
+  "zip3_copy1",
+  "n_genres_copy1",
+  "n_genres",
+  "year_copy1",
+  "user_activity",
+  "timestamp_copy1",
+  "year",
+  "age_gender_copy1",
+  "gender_copy1",
+  "decade_copy1",
+  "timestamp",
+  "gender",
+  "weekday_copy1",
+  "occupation_copy1",
+  "occupation",
+  "weekday",
+  "hour_copy1",
+  "age_gender",
+  "zip1_copy1",
+  "zip1"
+ ],
+ "protocol": {
+  "data": "ml1m40c.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

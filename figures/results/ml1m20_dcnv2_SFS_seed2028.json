@@ -1,0 +1,112 @@
+{
+ "kind": "eval_ranking",
+ "name": "SFS",
+ "data": "data/ml1m20.npz",
+ "model": "dcnv2",
+ "budgets": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12
+ ],
+ "test_auc": {
+  "2": 0.7057009088707544,
+  "4": 0.8072464126619155,
+  "6": 0.8061481875834424,
+  "8": 0.7896291461456676,
+  "10": 0.7913815132015424,
+  "12": 0.7909654887800576
+ },
+ "subsets": {
+  "2": [
+   "user_id",
+   "decade"
+  ],
+  "4": [
+   "user_id",
+   "movie_id",
+   "decade",
+   "item_popularity"
+  ],
+  "6": [
+   "user_id",
+   "movie_id",
+   "zip",
+   "decade",
+   "first_genre",
+   "item_popularity"
+  ],
+  "8": [
+   "user_id",
+   "movie_id",
+   "timestamp",
+   "title",
+   "zip",
+   "decade",
+   "first_genre",
+   "item_popularity"
+  ],
+  "10": [
+   "user_id",
+   "movie_id",
+   "timestamp",
+   "title",
+   "genres",
+   "zip",
+   "decade",
+   "first_genre",
+   "user_activity",
+   "item_popularity"
+  ],
+  "12": [
+   "user_id",
+   "movie_id",
+   "timestamp",
+   "title",
+   "genres",
+   "age",
+   "zip",
+   "decade",
+   "first_genre",
+   "zip3",
+   "user_activity",
+   "item_popularity"
+  ]
+ },
+ "ranking": [
+  "user_id",
+  "decade",
+  "item_popularity",
+  "movie_id",
+  "first_genre",
+  "zip",
+  "title",
+  "timestamp",
+  "genres",
+  "user_activity",
+  "zip3",
+  "age",
+  "year",
+  "gender",
+  "n_genres",
+  "occupation",
+  "age_gender",
+  "zip1",
+  "weekday",
+  "hour"
+ ],
+ "protocol": {
+  "data": "ml1m20.npz",
+  "model": "dcnv2",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

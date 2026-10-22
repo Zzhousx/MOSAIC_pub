@@ -1,0 +1,129 @@
+{
+ "kind": "eval_sets",
+ "data": "data/ml1m20.npz",
+ "model": "deepfm",
+ "sets": {
+  "L6": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "zip",
+    "decade",
+    "item_popularity"
+   ],
+   "test_auc": 0.8074363980352643,
+   "test_auc_seeds": [
+    0.8078690050402446,
+    0.8071073283829943,
+    0.807332860682554
+   ],
+   "val_auc": 0.8102906199824093
+  },
+  "L8": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "zip",
+    "decade",
+    "item_popularity",
+    "timestamp",
+    "first_genre"
+   ],
+   "test_auc": 0.7927021450618148,
+   "test_auc_seeds": [
+    0.7935686618083606,
+    0.79220943571195,
+    0.7923283376651337
+   ],
+   "val_auc": 0.7952012642936953
+  },
+  "L6+first_genre": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "zip",
+    "decade",
+    "item_popularity",
+    "first_genre"
+   ],
+   "test_auc": 0.8073671346007023,
+   "test_auc_seeds": [
+    0.807671910868042,
+    0.8068639432192638,
+    0.8075655497148009
+   ],
+   "val_auc": 0.8101427607164641
+  },
+  "L6+timestamp": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "zip",
+    "decade",
+    "item_popularity",
+    "timestamp"
+   ],
+   "test_auc": 0.791466409066019,
+   "test_auc_seeds": [
+    0.7920728079226632,
+    0.7908045026258358,
+    0.7915219166495577
+   ],
+   "val_auc": 0.79436560738276
+  },
+  "M8": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "gender",
+    "zip",
+    "year",
+    "hour",
+    "age_gender"
+   ],
+   "test_auc": 0.8095041682143226,
+   "test_auc_seeds": [
+    0.8092088187523767,
+    0.8104533843239133,
+    0.8088503015666778
+   ],
+   "val_auc": 0.811163075523415
+  },
+  "M8_hour_to_timestamp": {
+   "fields": [
+    "user_id",
+    "movie_id",
+    "title",
+    "gender",
+    "zip",
+    "year",
+    "timestamp",
+    "age_gender"
+   ],
+   "test_auc": 0.7910732937439962,
+   "test_auc_seeds": [
+    0.7917763338225284,
+    0.7907615456608341,
+    0.7906820017486262
+   ],
+   "val_auc": 0.7934020951660941
+  }
+ },
+ "protocol": {
+  "data": "ml1m20.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 1024,
+  "epochs": 10,
+  "sparse_emb": false,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ }
+}

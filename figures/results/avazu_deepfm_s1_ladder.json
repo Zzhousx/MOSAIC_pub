@@ -1,0 +1,407 @@
+{
+ "kind": "ladder",
+ "version": "v2",
+ "data": "avazu",
+ "model": "deepfm",
+ "mseed": 1,
+ "budgets": [
+  4,
+  8,
+  12,
+  16
+ ],
+ "fields": [
+  "hour",
+  "C1",
+  "banner_pos",
+  "site_id",
+  "site_domain",
+  "site_category",
+  "app_id",
+  "app_domain",
+  "app_category",
+  "device_id",
+  "device_ip",
+  "device_model",
+  "device_type",
+  "device_conn_type",
+  "C14",
+  "C15",
+  "C16",
+  "C17",
+  "C18",
+  "C19",
+  "C20",
+  "C21"
+ ],
+ "protocol": {
+  "data": "avazu",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 4096,
+  "epochs": 2,
+  "sparse_emb": true,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ },
+ "source": "avazu_deepfm_s1_v2.json",
+ "rederived": [
+  4,
+  4
+ ],
+ "rungs": {
+  "Rank by budget-agnostic importance (p=0.5)": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_ip"
+    ],
+    "8": [
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "site_category",
+     "app_id",
+     "app_domain",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17",
+     "C19",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7568071828164923,
+    "8": 0.7799650218624526,
+    "12": 0.7814455816252485,
+    "16": 0.7828185951967473
+   },
+   "test_auc_std": {
+    "4": 0.00034264470313227855,
+    "8": 0.00016026657384885738,
+    "12": 0.0002798754330257588,
+    "16": 3.5200049098951814e-05
+   },
+   "val_auc": {
+    "4": 0.7565897656282766,
+    "8": 0.7797548970070145,
+    "12": 0.781267860380244,
+    "16": 0.7825413870395509
+   }
+  },
+  "Rank by budget-local importance": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "site_domain",
+     "C14",
+     "C17"
+    ],
+    "8": [
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "site_category",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_conn_type",
+     "C14",
+     "C17",
+     "C18",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7320903692775881,
+    "8": 0.7799650218624526,
+    "12": 0.7819967028324827,
+    "16": 0.7830092256583668
+   },
+   "test_auc_std": {
+    "4": 5.202501239888397e-05,
+    "8": 0.00016026657384885738,
+    "12": 4.950207551605688e-05,
+    "16": 0.00012103979374992523
+   },
+   "val_auc": {
+    "4": 0.7316582473856811,
+    "8": 0.7797548970070145,
+    "12": 0.7818804342231388,
+    "16": 0.7827999520309407
+   }
+  },
+  "Density-averaged interactions": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "app_id",
+     "device_ip",
+     "C14"
+    ],
+    "8": [
+     "banner_pos",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_conn_type",
+     "C14",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_domain",
+     "site_category",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "C14",
+     "C15",
+     "C17",
+     "C18",
+     "C19",
+     "C20"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7667384388278337,
+    "8": 0.7790482798321627,
+    "12": 0.7822092925501755,
+    "16": 0.7817620469476069
+   },
+   "test_auc_std": {
+    "4": 0.00027852052459387234,
+    "8": 6.309111834966633e-05,
+    "12": 0.0001951881258423661,
+    "16": 0.00011677181981885581
+   },
+   "val_auc": {
+    "4": 0.7665076208326279,
+    "8": 0.778960261748999,
+    "12": 0.7820557769489467,
+    "16": 0.7815098375262028
+   }
+  },
+  "MOSAIC w/o verification": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "app_id",
+     "device_ip",
+     "C14"
+    ],
+    "8": [
+     "banner_pos",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C17",
+     "C18"
+    ],
+    "16": [
+     "C1",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "site_category",
+     "app_id",
+     "app_category",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_conn_type",
+     "C14",
+     "C16",
+     "C18",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7667384388278337,
+    "8": 0.7790482798321627,
+    "12": 0.7816306731884168,
+    "16": 0.7813814134964198
+   },
+   "test_auc_std": {
+    "4": 0.00027852052459387234,
+    "8": 6.309111834966633e-05,
+    "12": 0.0002969996001794571,
+    "16": 0.00028253933778538603
+   },
+   "val_auc": {
+    "4": 0.7665076208326279,
+    "8": 0.778960261748999,
+    "12": 0.7814589619019313,
+    "16": 0.781076408599566
+   }
+  },
+  "MOSAIC": {
+   "subsets": {
+    "4": [
+     "site_id",
+     "app_id",
+     "device_ip",
+     "C14"
+    ],
+    "8": [
+     "banner_pos",
+     "site_id",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "C14",
+     "C17"
+    ],
+    "12": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C21"
+    ],
+    "16": [
+     "hour",
+     "banner_pos",
+     "site_id",
+     "site_domain",
+     "app_id",
+     "app_domain",
+     "device_id",
+     "device_ip",
+     "device_model",
+     "device_type",
+     "device_conn_type",
+     "C14",
+     "C16",
+     "C19",
+     "C20",
+     "C21"
+    ]
+   },
+   "test_auc": {
+    "4": 0.7667384388278337,
+    "8": 0.7800299051358275,
+    "12": 0.7823051415949124,
+    "16": 0.7833028480729644
+   },
+   "test_auc_std": {
+    "4": 0.00027852052459387234,
+    "8": 0.00024902558845919874,
+    "12": 0.0001474215993749302,
+    "16": 7.767507234656836e-05
+   },
+   "val_auc": {
+    "4": 0.7665076208326279,
+    "8": 0.7799155032253392,
+    "12": 0.7821731446162237,
+    "16": 0.7831309705884476
+   }
+  }
+ },
+ "all_fields_test_auc": 0.7830215447270049
+}

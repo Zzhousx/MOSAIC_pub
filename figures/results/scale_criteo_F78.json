@@ -1,0 +1,47 @@
+{
+ "kind": "costonly",
+ "data": "data\\criteo_scale_F78.npz",
+ "model": "deepfm",
+ "F": 78,
+ "budgets": [
+  10,
+  20,
+  29,
+  39,
+  49
+ ],
+ "card_total": 6286133,
+ "train_rows": 2000000,
+ "est_rows": 500000,
+ "passes": 8,
+ "grid": [
+  0.1282,
+  0.2564,
+  0.3718,
+  0.5,
+  0.6282
+ ],
+ "shared_epochs": 1,
+ "epochs_limit": 1,
+ "seconds": {
+  "shared_train": 3.9320945739746094,
+  "moments": 14.12438178062439,
+  "selection": 0.09995555877685547,
+  "verification": 3.041404962539673,
+  "mosaic_total": 21.197836875915527,
+  "one_full_train": 2.828462600708008
+ },
+ "protocol": {
+  "data": "criteo_scale_F78.npz",
+  "model": "deepfm",
+  "dim": 8,
+  "lr": 0.001,
+  "batch_size": 4096,
+  "epochs": 1,
+  "sparse_emb": true,
+  "max_train_rows": null,
+  "max_eval_rows": null,
+  "smoke": false
+ },
+ "gpu": "NVIDIA GeForce RTX 4060 Ti"
+}
